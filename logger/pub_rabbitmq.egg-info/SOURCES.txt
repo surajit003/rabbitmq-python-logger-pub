@@ -1,5 +1,0 @@
-setup.py
-pub_rabbitmq.egg-info/PKG-INFO
-pub_rabbitmq.egg-info/SOURCES.txt
-pub_rabbitmq.egg-info/dependency_links.txt
-pub_rabbitmq.egg-info/top_level.txt
