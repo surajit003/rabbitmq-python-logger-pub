@@ -6,5 +6,8 @@ setup(
     scripts=[
         "MQloggerpub"
     ],  # The name of your scipt, and also the command you'll be using for calling it
-    download_url='https://github.com/surajit003/rabbitmq-python-logger-pub/archive/v1.0.tar.gz'
+    download_url='https://github.com/surajit003/rabbitmq-python-logger-pub/archive/v1.0.tar.gz',
+    install_requires=[
+              'pika',
+          ],
 )
