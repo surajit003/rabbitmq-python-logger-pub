@@ -1,23 +1,46 @@
 import pika
 import logging
 from logging import Handler
-from message.mq_connection import MQConnection
 
 
 class RabbitMQHandler(Handler):
     def __init__(
-            self, exchange, routing_key, level=logging.NOTSET, message_headers=None,
+        self,
+        broker_url,
+        broker_port,
+        broker_vhost,
+        broker_username,
+        broker_password,
+        exchange,
+        routing_key,
+        level=logging.NOTSET,
+        message_headers=None,
     ):
         Handler.__init__(self, level)
         # will be useful to specify the system publishing the log e.g KUZA,GRAPEVINE
+        self.broker_url = broker_url
+        self.broker_port = broker_port
+        self.broker_vhost = broker_vhost
+        self.broker_username = broker_username
+        self.broker_password = broker_password
         self.message_headers = message_headers
         self.exchange = exchange
         self.routing_key = routing_key
 
     def get_channel(self):
-        connection = MQConnection.getInstance()
-        channel = connection.channel()
-        return channel
+        try:
+            parameters = pika.ConnectionParameters(
+                self.broker_url,
+                self.broker_port,
+                self.broker_vhost,
+                pika.PlainCredentials(self.broker_username, self.broker_password),
+            )
+            # Connect to CloudAMQP
+            connection = pika.BlockingConnection(parameters)
+            channel = connection.channel()
+            return channel
+        except Exception:
+            raise Exception
 
     def emit(self, record):
         """
