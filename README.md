@@ -14,8 +14,9 @@ pip install MQlogger
 
 ```python
 import logging
+from MQlogger.MQloggerpub import RabbitMQHandler
 rmq_handler = RabbitMQHandler('broker_url',
-        5672,
+        'broker_port',
         'broker_vhost',
         'broker_username',
         'broker_password',
