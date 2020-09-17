@@ -17,7 +17,7 @@ class RabbitMQHandler(Handler):
         message_headers=None,
     ):
         Handler.__init__(self, level)
-        # will be useful to specify the system publishing the log e.g KUZA,GRAPEVINE
+        # will be useful to specify the system publishing the log e.g System1,System2
         self.broker_url = broker_url
         self.broker_port = broker_port
         self.broker_vhost = broker_vhost
