@@ -39,8 +39,8 @@ class RabbitMQHandler(Handler):
             connection = pika.BlockingConnection(parameters)
             channel = connection.channel()
             return channel
-        except Exception:
-            raise Exception
+        except Exception as ex:
+            raise Exception(ex)
 
     def emit(self, record):
         """
@@ -57,8 +57,8 @@ class RabbitMQHandler(Handler):
                         delivery_mode=2, headers=self.message_headers
                     ),
                 )
-        except Exception:
+        except Exception as ex:
             self.handleError(record)
-            raise Exception
+            raise Exception(ex)
         finally:
             self.release()
